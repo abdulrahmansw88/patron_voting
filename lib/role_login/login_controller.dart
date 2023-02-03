@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../characters/characters_screen.dart';
 import '../helper/firebase_helper.dart';
 
 class LoginController extends GetxController{
@@ -12,5 +13,6 @@ class LoginController extends GetxController{
 
   signInUser(){
     signIn(email: email.text.toString(), password: password.text.toString());
+    Get.to(CharactersView());
   }
 }

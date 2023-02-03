@@ -100,11 +100,15 @@ getUserFromEmail(uid)async{
   var user = await db.collection('user').doc(uid).get();
   print("\n usre ------=>  ${user.data()}");
 }
-getUser() async {
-  List<UserData> userData =  [];
+getUser(collectionName) async {
+  List<UserData>? userData ;
   try{
-    QuerySnapshot querySnapshot = await db.collection("users").get();
-    final users = querySnapshot.docs.map((doc) => doc.data()).toList();
+    QuerySnapshot querySnapshot = await db.collection("${collectionName}").get();
+    final users = querySnapshot.docs.map((doc) => (doc.data()));
+    print("user \n ${users}");
+    UserData.fromFirestore(users, null);
+    // UserData.fromMap(users);
+    return users;
   }on FirebaseException catch(e){
     print("Exception Daata ${e.hashCode}");
   }
