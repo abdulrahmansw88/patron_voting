@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "34227197760",
+    "project_id": "patron-voting",
+    "storage_bucket": "patron-voting.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34227197760:android:3b1c552ed2c16c7a010ca5",
+        "android_client_info": {
+          "package_name": "com.disnyland.patronvoting.patron_voting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34227197760-2ebo7oin8nui4cfq75c1a8mk5u71orpa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCuvVFfk-JRG-MR219EgWyWOrFCDKRj-s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34227197760-2ebo7oin8nui4cfq75c1a8mk5u71orpa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
