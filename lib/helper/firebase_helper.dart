@@ -8,7 +8,7 @@ import 'package:patron_voting/models/user.dart';
 
 void signIn({String? email, String? password})async{
   try {
-    final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+     await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: "$email",
         password: "${password}"
     ).then((value) {
@@ -56,9 +56,12 @@ saveUserFS({data, String? collectionName, String? uid}){
   db.collection(collectionName!).doc(uid).set(data).then((value) {
     print("Successfully added user");
   });
-}catch (e){
-    print("FB Exception $e");
-  }}
+  } on FirebaseException catch(e){
+    print("${e.message}");
+  }catch (e){
+    print("exception");
+  }
+}
 
 addCharacter(String? filePath) async {
   try{
