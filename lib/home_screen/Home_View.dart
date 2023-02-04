@@ -17,14 +17,20 @@ class HomeView extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const Align(
+              alignment: Alignment.centerLeft,
+              child:  Padding(
+                padding: EdgeInsets.only(left: 16.0),
+                child: Text("Select Role", style: TextStyle(color: Color(0xFF00174c), fontSize: 26, fontWeight: FontWeight.w600)),
+              )),
           GestureDetector(
-            child: ContainerWidget(text: "Admin Login"),
+            child: ContainerWidget(text: "Admin",),
             onTap: (){
               Get.to(()=> LoginScreen(userRoles: UserRoles.admin));
             },
           ),
           GestureDetector(
-            child: ContainerWidget(text: "User Login",),
+            child: ContainerWidget(text: "User",),
             onTap: (){
               Get.to(()=> LoginScreen(userRoles: UserRoles.user));
             },

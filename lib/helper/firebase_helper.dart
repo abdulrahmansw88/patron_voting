@@ -20,15 +20,22 @@ void signIn({String? email, String? password, int? userType})async{
         email: "$email",
         password: "${password}"
     ).then((value) {
-      print(value);
+      print(" nouser _______\n: $value");
       getUserFromEmail(uid: value.user!.uid, usertTpye: userType);
     });
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
+      Get.back();
+      showSnackBar("No user found for that email");
       print('No user found for that email.');
+
     } else if (e.code == 'wrong-password') {
+      Get.back();
+      showSnackBar("Invalid email/password");
+      print('Invalid email/password');
       print('Wrong password provided for that user.');
     }
+
   }
 }
 
@@ -96,13 +103,6 @@ saveUserFS({data, String? collectionName, String? uid}){
   }
 }
 
-searchUser(query){
-  var data = db.collection("user").where("name", arrayContains: query).get();
-  print("Search data____________________________________\n");
-  // data.then((value) {
-  //   print(value.docs[0]['name']);
-  // });
-}
 
 addCharacter({String? filePath, String? name, int?  noOfVotes}) async {
   try{
@@ -132,11 +132,16 @@ addCharacter({String? filePath, String? name, int?  noOfVotes}) async {
 }
 
 voteCharacter(documentId){
-// var increment = db.doc("character").firestore.f
-
-  FirebaseFirestore.instance.collection('characters').doc("$documentId").update({
+  db.collection('characters').doc("$documentId").update({
       'noOfVotes': FieldValue.increment(1),
   });
+  Map<String, dynamic> data = {
+    "characterId": "$documentId",
+    "voterId": "",
+    "timeStamp":Timestamp.now(),
+  };
+  var fieldName = "${Timestamp.now().toDate().microsecondsSinceEpoch}";
+  db.collection('votes').doc(fieldName).set(data);
   SetOptions(merge:true);
 }
 
@@ -178,12 +183,14 @@ deleteCharacter(documentId){
   }
 }
 getUserFromEmail({uid, usertTpye})async{
-  var user = await db.collection('user').doc(uid).get().then((value) {
+  try{
+   await db.collection('user').doc(uid).get().then((value) {
     // print("Signed -----In\n _____\n _____________-\n  ${value["role"]}");
     if(value.isBlank!){
       showSnackBar("User not registered");
     }else if(value['role'] != usertTpye){
       String role = usertTpye == 1 ? "Admin" : "User";
+      Get.back();
       showSnackBar("Email not registered for $role");
     } else if(value['role'] == 2){
       Get.to(CharactersView());
@@ -194,7 +201,11 @@ getUserFromEmail({uid, usertTpye})async{
     }
     print("Signed -----In\n _____\n _____________-\n  ${value.data()}");
   });
-  print("useer________________-\n $user");
+  }on FirebaseException catch(e){
+    showSnackBar("Invalid Credentials ${e.message}");
+    Get.back();
+  }
+  // print("useer________________-\n $user");
   // print("\n usre ------=>  ${user.data()}");
 }
 getUser(collectionName) async {

@@ -82,15 +82,6 @@ UserRoles? userRoles;
                                   ),
                                 ),
                             ),
-                            SizedBox(height: 10),
-                            Obx(()=> CheckboxListTile(
-                              title: const Text("Save Login"),
-                              onChanged: (value){
-                                controller.saveLogin.value = value!;
-                              },
-                              value: controller.saveLogin.value,
-                            ),
-                            ),
                             const SizedBox(height: 16),
                             SizedBox(
                               width: MediaQuery.of(context).size.width - 30,
@@ -100,6 +91,11 @@ UserRoles? userRoles;
                                 height: 45,
                                 onPressed: (){
                                   if(controller.formKey.currentState!.validate()){
+                                    Get.defaultDialog(
+                                      title: "Loading",
+                                      content: Text("Plaese wait loading"),
+                                      barrierDismissible: false,
+                                    );
                                     controller.signInUser(userType: userRoles!.index);
                                   }
                                   // Get.to(()=> HomePageView());

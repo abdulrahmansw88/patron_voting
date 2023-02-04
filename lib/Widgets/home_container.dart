@@ -24,10 +24,9 @@ class ContainerWidget extends StatelessWidget {
           ]
       ),
       child:  Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children:  [
-          Icon(Icons.person, size: 35,),
-          SizedBox(width: 20),
-          Text("$text"),
+          Text(text.toString(), style:const TextStyle(color: Color(0xFF00174c), fontSize: 20, fontWeight: FontWeight.bold)),
         ],
       ),
     );

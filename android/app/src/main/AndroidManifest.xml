@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.disnyland.patronvoting.patron_voting">
-
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="Patron Voting"
         android:name="${applicationName}"
