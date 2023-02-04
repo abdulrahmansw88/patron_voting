@@ -4,8 +4,8 @@ import 'package:patron_voting/helper/firebase_helper.dart';
 class CharacterController extends GetxController{
 
   void getCharacters(){
-   List data =  getUser("character");
-   print("Data in character \n =>  ${data[0]}");
+  var data =  getUser("character");
+   print("Data in character \n =>  ${data}");
   }
   @override
   void onInit() {

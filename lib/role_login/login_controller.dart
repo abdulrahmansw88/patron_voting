@@ -6,8 +6,8 @@ import '../helper/firebase_helper.dart';
 
 class LoginController extends GetxController{
   final formKey = GlobalKey<FormState>();
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
+  TextEditingController email = TextEditingController(text: "adeel@gk.com");
+  TextEditingController password = TextEditingController(text: "123456");
   RxBool obscurePassword = true.obs;
   RxBool saveLogin = false.obs;
 
