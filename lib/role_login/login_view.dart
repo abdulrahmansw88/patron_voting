@@ -100,7 +100,7 @@ UserRoles? userRoles;
                                 height: 45,
                                 onPressed: (){
                                   if(controller.formKey.currentState!.validate()){
-                                    controller.signInUser();
+                                    controller.signInUser(userType: userRoles!.index);
                                   }
                                   // Get.to(()=> HomePageView());
                                 }, child: const Text("Login", style: TextStyle(color: Colors.white, fontSize: 18) ),),

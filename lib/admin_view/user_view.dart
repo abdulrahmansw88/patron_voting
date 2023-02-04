@@ -9,69 +9,46 @@ import 'package:patron_voting/helper/firebase_helper.dart';
 import '../utils/colors.dart';
 import '../utils/validator_functions.dart';
 
-class UserViewAdmin extends StatelessWidget {
+class UserViewAdmin extends StatefulWidget {
    UserViewAdmin({Key? key}) : super(key: key);
 
+  @override
+  State<UserViewAdmin> createState() => _UserViewAdminState();
+}
+
+class _UserViewAdminState extends State<UserViewAdmin> {
+  String name="";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Manage Users"),
+        title:  TextField(
+            decoration: const InputDecoration(
+                suffixIcon: Icon(Icons.search), hintText: 'Users'),
+            onChanged: (val) {
+              setState(() {
+                name = val;
+              });
+            },
+          ),
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('user').snapshots(),
         builder: (context, snapshot){
           if(snapshot.isBlank!){
-            return Text("No Data avaialable");
+            return Center(child: Text("No Data avaialable"));
           }else if(!snapshot.hasData){
-            return Text("Loading");
+            return Center(child: Text("Loading"));
           }
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             padding: EdgeInsets.symmetric(horizontal: 12),
             itemBuilder: (context, index){
-              return ListTile(
-                contentPadding: EdgeInsets.symmetric(horizontal: 2, vertical: 8),
-                title: Row(
-                  children: [
-                    Text("${snapshot.data!.docs[index]['name']}"),
-                    SizedBox(width: 6,),
-                  ],
-                ),
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(32),
-                    child: const FadeInImage(
-                      placeholder: AssetImage('assets/images/img.png'),
-                      image:  NetworkImage("https://i.pravatar.cc/"),
-                      fit: BoxFit.cover,
-                    ),
-
-                    // Image.network("https://i.pravatar.cc/")
-                ),
-                trailing:  PopupMenuButton<String>(
-                  onSelected: (value){
-                    if(value == "Update") {
-                      handleClick(context: context,
-                          uid: snapshot.data!.docs[index]['uid'],
-                          role: snapshot.data!.docs[index]['role'],
-                          password: snapshot.data!.docs[index]['password'],
-                          documentId: snapshot.data!.docs[index].id,
-                          value: "Update");
-                    }else if(value =="Delete"){
-                      deleteFS(snapshot.data!.docs[index].id);
-                    }
-                    },
-                  itemBuilder: (BuildContext context) {
-                    return {'Update', 'Delete'}.map((String choice) {
-                      return PopupMenuItem<String>(
-                        value: choice,
-                        child: Text(choice),
-                      );
-                    }).toList();
-                  },
-                ),
-              );
+              return name.isEmpty ? buildListTile(snapshot, index, context) : snapshot.data!.docs[index]['name']
+                  .toString()
+                  .toLowerCase()
+                  .startsWith(name.toLowerCase()) ?  buildListTile(snapshot, index, context) : Text('');
             },
           );
         },
@@ -93,6 +70,50 @@ class UserViewAdmin extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget buildListTile(AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot, int index, BuildContext context) {
+    return snapshot.data!.docs[index]['role'] == 1? Container() :ListTile(
+              contentPadding: EdgeInsets.symmetric(horizontal: 2, vertical: 8),
+              title: Row(
+                children: [
+                  Text("${snapshot.data!.docs[index]['name']}"),
+                  SizedBox(width: 6,),
+                ],
+              ),
+              leading: ClipRRect(
+                borderRadius: BorderRadius.circular(32),
+                  child: const FadeInImage(
+                    placeholder: AssetImage('assets/images/img.png'),
+                    image:  NetworkImage("https://i.pravatar.cc/"),
+                    fit: BoxFit.cover,
+                  ),
+
+                  // Image.network("https://i.pravatar.cc/")
+              ),
+              trailing:  PopupMenuButton<String>(
+                onSelected: (value){
+                  if(value == "Update") {
+                    handleClick(context: context,
+                        uid: snapshot.data!.docs[index]['uid'],
+                        role: snapshot.data!.docs[index]['role'],
+                        password: snapshot.data!.docs[index]['password'],
+                        documentId: snapshot.data!.docs[index].id,
+                        value: "Update");
+                  }else if(value =="Delete"){
+                    deleteFS(snapshot.data!.docs[index].id);
+                  }
+                  },
+                itemBuilder: (BuildContext context) {
+                  return {'Update', 'Delete'}.map((String choice) {
+                    return PopupMenuItem<String>(
+                      value: choice,
+                      child: Text(choice),
+                    );
+                  }).toList();
+                },
+              ),
+            );
   }
 }
 

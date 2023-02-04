@@ -29,6 +29,7 @@ class CharactersView extends StatelessWidget {
                   margin: EdgeInsets.symmetric(vertical: 8),
                   height: 200,
                  decoration: BoxDecoration(
+                   color: Colors.white,
                    borderRadius: BorderRadius.circular(16.0),
                    boxShadow: [
                      BoxShadow(
@@ -51,7 +52,7 @@ class CharactersView extends StatelessWidget {
                       Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 16.0),
+                            padding: const EdgeInsets.only(left: 32.0),
                             child: Text("${snapshot.data!.docs[index]['name']}", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
                           )),
                       Row(
@@ -60,7 +61,7 @@ class CharactersView extends StatelessWidget {
                           Text("${snapshot.data!.docs[index]['noOfVotes']} Votes",  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                           IconButton(onPressed: (){
                             voteCharacter("${snapshot.data!.docs[index].id}");
-                          }, icon: Icon(Icons.flag_circle))
+                          }, icon: Icon(Icons.front_hand_rounded, size: 40,))
                         ],
                       ),
                     ],

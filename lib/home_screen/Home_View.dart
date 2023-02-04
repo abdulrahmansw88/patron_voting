@@ -26,10 +26,7 @@ class HomeView extends StatelessWidget {
           GestureDetector(
             child: ContainerWidget(text: "User Login",),
             onTap: (){
-              // registerUser(email: "adeel@gk.com", password: "123456");
-              // Get.to(()=> LoginScreen(userRoles: UserRoles.user));
-              searchUser("zes");
-              Get.to(()=> AdminView());
+              Get.to(()=> LoginScreen(userRoles: UserRoles.user));
             },
           ),
         ],

@@ -13,14 +13,14 @@ class AddUser extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: LayoutBuilder(
-    builder: (context, constraint){
-      return Container(
-        padding:  EdgeInsets.symmetric(horizontal : constraint.maxWidth< 768?0.0 : 260, vertical : constraint.maxWidth< 768?0.0 : 80),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: 40),
-              Padding(
+          builder: (context, constraint){
+            return Container(
+              padding:  EdgeInsets.symmetric(horizontal : constraint.maxWidth< 768?0.0 : 260, vertical : constraint.maxWidth< 768?0.0 : 80),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(height: 40),
+                    Padding(
                 padding: const EdgeInsets.only(left: 16, right: 16),
                 child: Form(
                   key: controller.formKey,

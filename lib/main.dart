@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
-      signIn(email: "adeel@disnyland.com", password: "123456");
+      // signIn(email: "adeel@disnyland.com", password: "123456");
     });
   }
 
@@ -111,11 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
           MaterialButton(
             color: Colors.grey,
               child:const Text("Save character"),
-              onPressed: (){
-                picker.pickImage(source: ImageSource.camera).then((value) {
-                  addCharacter(value!.path);
-                });
-              }
+              onPressed: (){}
           ),
           MaterialButton(
             color: Colors.green,

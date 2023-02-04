@@ -11,8 +11,7 @@ class LoginController extends GetxController{
   RxBool obscurePassword = true.obs;
   RxBool saveLogin = false.obs;
 
-  signInUser(){
-    signIn(email: email.text.toString(), password: password.text.toString());
-    Get.to(CharactersView());
+  signInUser({int? userType}){
+    signIn(email: email.text.toString(), password: password.text.toString(), userType: userType);
   }
 }
